@@ -154,16 +154,18 @@ public class Fmanager {
                             Registro temp= new Registro("registro"+cont_reg++);
                             do {
                                 System.out.println("--add campo--");
-                                System.out.print("nombre: ");
+                                System.out.print("name: ");//cuenta o domicilio p.ejm
                                 String name_campo=in.nextLine();
+                                System.out.print("data: ");//informacion ligada al nombre 
+                                String data=in.nextLine();
                                 System.out.print("llave primaria(v/f)?");
                                 //char isKey=scanner.nextLine().charAt(0);
                                 if(Character.toLowerCase(in.nextLine().charAt(0))=='v'){
                                     //temp_campos.add(new Campo(name_campo, true));
-                                    temp.getCampos_de_registro().add(new Campo(name_campo, true));
+                                    temp.getCampos_de_registro().add(new Campo(name_campo,data, true));
                                 }else{
                                     //temp_campos.add(new Campo(name_campo, false));
-                                    temp.getCampos_de_registro().add(new Campo(name_campo, false));
+                                    temp.getCampos_de_registro().add(new Campo(name_campo,data, false));
                                 }
                                 System.out.println("s para salir otra tecla para continuar: ");
                                 resp=in.nextLine().charAt(0);

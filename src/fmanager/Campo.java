@@ -11,12 +11,24 @@ package fmanager;
  */
 public class Campo {//nombre y id
     private String nombre;//ver que sucede con string a la hora de cargar al archivo binario
+    private String data;
     private boolean key;
 
-    public Campo(String nombre, boolean key) {
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Campo(String nombre, String data, boolean key) {
         this.nombre = nombre;
+        this.data = data;
         this.key = key;
     }
+
+    
 
     public boolean isKey() {
         return key;

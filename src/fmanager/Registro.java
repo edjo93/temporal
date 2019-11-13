@@ -38,7 +38,7 @@ public class Registro implements Serializable{
     }
     public void listar_campos(){
         for (int i = 0; i < campos_de_registro.size(); i++) {
-            System.out.print(campos_de_registro.get(i).getNombre()+"|");
+            System.out.print(campos_de_registro.get(i).getNombre()+":"+campos_de_registro.get(i).getData()+"|");
         }
     }
     
