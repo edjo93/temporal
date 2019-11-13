@@ -192,6 +192,44 @@ public class Fmanager {
                             }
                             break;
                         case '3':
+                            //segun registro
+                            //nos movemos a traves de los registros
+                            if(temp_registro.isEmpty()){
+                                System.out.println("no hay registros");
+                            }else{
+                                //listar campos de un unico registro
+                                Scanner int_scanner=new Scanner(System.in);
+                                Scanner new_def=new Scanner(System.in);
+                                System.out.println("--modificar campos--");
+                                for (int i = 0; i < temp_registro.get(0).getCampos_de_registro().size(); i++) {//cantidad de campos de un registo
+                                    System.out.println("["+i+"]"+temp_registro.get(0).getCampos_de_registro().get(i).getNombre());
+                                }
+                                System.out.print("pos?: ");
+                                int pos=int_scanner.nextInt();
+                                boolean pos_invalida=true;
+                                if(pos>=0&pos<temp_registro.get(0).getCampos_de_registro().size()){
+                                    //nueva definicion
+                                    System.out.print("new field name: ");//cuenta -->account
+                                    String new_name=new_def.nextLine();
+                                    for (int i = 0; i < temp_registro.size(); i++) {
+                                        temp_registro.get(i).getCampos_de_registro().get(pos).setNombre(new_name);
+                                    }
+                                    System.out.println("done!");
+                                }else{
+                                    System.out.println("--modificar campos--");
+                                    while (pos_invalida) {
+                                        for (int i = 0; i < temp_registro.get(0).getCampos_de_registro().size(); i++) {//cantidad de campos de un registo
+                                            System.out.println("["+i+"]"+temp_registro.get(0).getCampos_de_registro().get(i).getNombre());
+                                        }
+                                        System.out.print("posicion no valida/intente de nuevo: ");
+                                        pos=int_scanner.nextInt();
+                                        if (pos>=0&pos<temp_registro.get(0).getCampos_de_registro().size()) {
+                                           pos_invalida=false;
+                                        }
+                                    }
+                                    
+                                }
+                            }
                             
                             break;
                         case '4':
