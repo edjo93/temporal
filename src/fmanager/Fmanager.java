@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -24,22 +25,6 @@ public class Fmanager {
      */
     public static void main(String[] args){
         // TODO code application logic here
-        /*
-        //escribir un objeto en un archivo binario
-        Archivo archivo1=new Archivo("archivo.dat");
-        archivo1.crear_archivo();
-        Archivo archivo2=new Archivo("archivo.dat");
-        archivo2.crear_archivo();
-        System.out.println(archivo1.getNombre());
-        System.out.println(archivo2.getNombre());
-        
-        archivo1.crear_registro();
-        archivo1.crear_registro();
-        archivo1.crear_registro();
-        archivo1.listar_registros();
-        archivo1.guardar_registros();
-        */
-        // TODO code application logic here
         int cont_reg=1;//contador de registros
         Scanner scanner=new Scanner(System.in);
         boolean salir=false;
@@ -48,8 +33,9 @@ public class Fmanager {
         File filename ;
         FileInputStream flujo_entrada = null;
         FileOutputStream flujo_salida;
-        LinkedList <Campo> temp_campos=new LinkedList<>();
-        LinkedList <Registro>temp_registro=new LinkedList<>();
+        
+        LinkedList<Registro>temp_registro=new LinkedList<>();
+        //Queue<Registro> cola_registros=new LinkedList<>();
         //el programa continua mientras el usuario asi lo decida
         do {
             System.out.print("1-archivo\n2-campos\n3-registros\n4-indices\n5-utilidades\n?:");
@@ -154,6 +140,7 @@ public class Fmanager {
                     
                     break;
                 case '2':
+                    
                     Scanner in=new Scanner(System.in);
                     //menu campos
                     char opcion3;
@@ -163,8 +150,8 @@ public class Fmanager {
                         case '1':
                             char resp;
                             //crear campo
-                            //crear registro
-                            temp_registro.add(new Registro("registro"+cont_reg++));
+                            //crear registro temporal
+                            Registro temp= new Registro("registro"+cont_reg++);
                             do {
                                 System.out.println("--add campo--");
                                 System.out.print("nombre: ");
@@ -172,16 +159,23 @@ public class Fmanager {
                                 System.out.print("llave primaria(v/f)?");
                                 //char isKey=scanner.nextLine().charAt(0);
                                 if(Character.toLowerCase(in.nextLine().charAt(0))=='v'){
-                                    temp_campos.add(new Campo(name_campo, true));
+                                    //temp_campos.add(new Campo(name_campo, true));
+                                    temp.getCampos_de_registro().add(new Campo(name_campo, true));
                                 }else{
-                                    temp_campos.add(new Campo(name_campo, false));
-                                    
+                                    //temp_campos.add(new Campo(name_campo, false));
+                                    temp.getCampos_de_registro().add(new Campo(name_campo, false));
                                 }
                                 System.out.println("s para salir otra tecla para continuar: ");
                                 resp=in.nextLine().charAt(0);
                             } while (Character.toLowerCase(resp)!='s');
+                            /*
                             //los campos van al registro correspondiente
-                            temp_registro.getFirst().setCampos_de_registro(temp_campos);
+                            temp.setCampos_de_registro(temp_campos);
+                            
+                            //limpiamos la lista de campos
+                            temp_campos.clear();
+                            */
+                            temp_registro.add(temp);
                             break;
                         case '2':
                             //por cada registro listar campos
@@ -190,7 +184,9 @@ public class Fmanager {
                             }else{
                                 for (int i = 0; i < temp_registro.size(); i++) {
                                     temp_registro.get(i).listar_campos();
+                                    System.out.println("");
                                 }
+                                
                             }
                             break;
                         case '3':

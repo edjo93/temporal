@@ -6,6 +6,7 @@
 package fmanager;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -19,7 +20,6 @@ public class Registro implements Serializable{
     public Registro(String nombre){
         this.nombre=nombre;
     }
-    
 
     public LinkedList<Campo> getCampos_de_registro() {
         return campos_de_registro;
@@ -39,9 +39,7 @@ public class Registro implements Serializable{
     public void listar_campos(){
         for (int i = 0; i < campos_de_registro.size(); i++) {
             System.out.print(campos_de_registro.get(i).getNombre()+"|");
-            System.out.println("");
         }
-        
     }
     
     

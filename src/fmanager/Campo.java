@@ -26,11 +26,6 @@ public class Campo {//nombre y id
         this.key = key;
     }
 
-    
-    
-
-    
-
     public String getNombre() {
         return nombre;
     }
