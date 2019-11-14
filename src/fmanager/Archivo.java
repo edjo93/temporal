@@ -127,7 +127,7 @@ public class Archivo {
                 System.out.println(registros_recuperados.get(i).getNombre()+"<- pos recuperada");
             }
             
-            
+            leer.close();
             
             
         }catch(IOException e){

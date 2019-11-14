@@ -5,11 +5,13 @@
  */
 package fmanager;
 
+import java.io.Serializable;
+
 /**
  *
  * @author edas
  */
-public class Campo {//nombre y id
+public class Campo implements Serializable {//nombre y id
     private String nombre;//ver que sucede con string a la hora de cargar al archivo binario
     private String data;
     private boolean key;

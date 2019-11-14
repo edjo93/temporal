@@ -10,7 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -22,17 +23,16 @@ public class Fmanager {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws ClassNotFoundException{
         // TODO code application logic here
         int cont_reg=1;//contador de registros
         Scanner scanner=new Scanner(System.in);
         boolean salir=false;
         char opcion1;
         Desktop fichero_abrir;
-        File filename ;
-        FileInputStream flujo_entrada = null;
-        FileOutputStream flujo_salida;
+        File filename = null ;
         
         LinkedList<Registro>temp_registro=new LinkedList<>();
         //Queue<Registro> cola_registros=new LinkedList<>();
@@ -49,35 +49,47 @@ public class Fmanager {
                     opcion2=scanner.next().charAt(0);
                     switch (opcion2) {
                         case '1':
-                            //abre un archivo
-                            File ruta=new File("C:\\Users\\edas\\Documents\\NetBeansProjects\\fmanager");
-                            String[] archivos=ruta.list();
-                            for (String archivo : archivos) {
-                                System.out.println(archivo);
-                            }
-                            Scanner in=new Scanner(System.in);
-                            System.out.print("nombre del archivo a abrir: ");
-                            String fname=in.nextLine();
-                            filename=new File(fname);
-                            if(filename.exists()){
-                                /*
-                                
-                                ---abrir con windows---
-                                fichero_abrir=Desktop.getDesktop();
-                                try {
-                                    fichero_abrir.open(filename);
-                                } catch (IOException e) {
-                                    System.out.println("error al abrir el archivo");
-                                }*/
-                                try {
-                                    flujo_entrada=new FileInputStream(filename);
-                                    System.out.println("open!");
-                                } catch (IOException e) {
-                                }
-                                
+                            if(filename!=null){
+                                System.out.println("close existing file first");
                             }else{
-                                System.out.println("not found");
+                            
+                                //abre un archivo
+                                File ruta=new File("C:\\Users\\edas\\Documents\\NetBeansProjects\\fmanager");
+                                String[] archivos=ruta.list();
+                                for (String archivo : archivos) {
+                                    System.out.println(archivo);
+                                }
+                                Scanner in=new Scanner(System.in);
+
+                                System.out.print("nombre del archivo a abrir: ");
+                                String fname=in.nextLine();
+                                filename=new File(fname);
+                                if(filename.exists()){
+                                    /*
+
+                                    ---abrir con windows---
+                                    fichero_abrir=Desktop.getDesktop();
+                                    try {
+                                        fichero_abrir.open(filename);
+                                    } catch (IOException e) {
+                                        System.out.println("error al abrir el archivo");
+                                    }*/
+
+                                    try {
+
+                                        ObjectInputStream leer=new ObjectInputStream(new FileInputStream(filename));
+                                        temp_registro=(LinkedList<Registro>)leer.readObject();
+                                        leer.close();
+                                        System.out.println("open!");
+                                    } catch (IOException e) {
+                                    }
+
+                                }else{
+                                    filename=null;
+                                    System.out.println("not found");
+                                }
                             }
+                            
                             
                             break;
                         case '2':
@@ -115,18 +127,28 @@ public class Fmanager {
                             break;
                         case '3':
                             
-                            break;
-                        case '4':
-                            //cerrar el archivo abierto actualmente
-                            if(flujo_entrada!=null){
+                            //guardar registros
+                            if(filename!=null){
                                 try{
-                                    flujo_entrada.close();
-                                    flujo_entrada=null;
-                                    System.out.println("closed!");
+                                    ObjectOutputStream escribir = new ObjectOutputStream(new FileOutputStream(filename));
+                                    escribir.writeObject(temp_registro);
+                                    escribir.close();
+                                    System.out.println("saved!");
                                 }catch(IOException e){
 
                                 }
-                               
+                            }else{
+                                System.out.println("not open");
+                            }
+                            
+                            
+                            break;
+                        case '4':
+                            //cerrar el archivo abierto actualmente
+                            //if(flujo_entrada!=null&leer!=null||flujo_salida!=null&escribir!=null){
+                            if(filename!=null){
+                                filename=null;
+                                System.out.println("closed!");
                             }else{
                                 System.out.println("not open."); 
                             }
@@ -167,7 +189,7 @@ public class Fmanager {
                                     //temp_campos.add(new Campo(name_campo, false));
                                     temp.getCampos_de_registro().add(new Campo(name_campo,data, false));
                                 }
-                                System.out.println("s para salir otra tecla para continuar: ");
+                                System.out.print("s para salir otra tecla para continuar: ");
                                 resp=in.nextLine().charAt(0);
                             } while (Character.toLowerCase(resp)!='s');
                             /*
