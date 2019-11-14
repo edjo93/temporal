@@ -240,6 +240,53 @@ public class Fmanager {
                             
                             break;
                         case '4':
+                            //segun registro
+                            //nos movemos a traves de los registros
+                            if(temp_registro.isEmpty()){
+                                System.out.println("no hay registros");
+                            }else{
+                                //listar campos de un unico registro,ya que todos los registros tienen estos campos en comun
+                                Scanner int_scanner=new Scanner(System.in);
+                                Scanner new_def=new Scanner(System.in);
+                                System.out.println("--eliminar campos--");
+                                for (int i = 0; i < temp_registro.get(0).getCampos_de_registro().size(); i++) {//cantidad de campos de un registo
+                                    System.out.println("["+i+"]"+temp_registro.get(0).getCampos_de_registro().get(i).getNombre());
+                                }
+                                System.out.print("pos?: ");//se solicita la posicion del campo a modificar
+                                int pos=int_scanner.nextInt();
+                                boolean pos_invalida=true;
+                                if(pos>=0&pos<temp_registro.get(0).getCampos_de_registro().size()){
+                                    for (int i = 0; i < temp_registro.size(); i++) {
+                                        temp_registro.get(i).getCampos_de_registro().remove(pos);//remover el campo seleccionado en todos los registros
+                                    }
+                                    System.out.println("done!");
+                                }else{
+                                    System.out.println("--eliminar campos--");
+                                    while (pos_invalida) {
+                                        for (int i = 0; i < temp_registro.get(0).getCampos_de_registro().size(); i++) {//cantidad de campos de un registo
+                                            System.out.println("["+i+"]"+temp_registro.get(0).getCampos_de_registro().get(i).getNombre());
+                                        }
+                                        System.out.print("posicion no valida/intente de nuevo: ");
+                                        pos=int_scanner.nextInt();
+                                        if (pos>=0&pos<temp_registro.get(0).getCampos_de_registro().size()) {
+                                           pos_invalida=false;
+                                        }
+                                    }
+                                    
+                                    for (int i = 0; i < temp_registro.size(); i++) {
+                                        temp_registro.get(i).getCampos_de_registro().remove(pos);
+                                    }
+                                    System.out.println("done!");
+                                    
+                                }
+                                
+                            }
+                            //si un registro no tiene campos|| clear all reg
+                            if(!temp_registro.isEmpty()){
+                                if(temp_registro.get(0).getCampos_de_registro().isEmpty()){
+                                    temp_registro.clear();
+                                }
+                            }
                             
                             break;
                         case '5':
@@ -264,7 +311,8 @@ public class Fmanager {
         } while (salir==false);
         
     }
-        
+    
+    
     
     
     
