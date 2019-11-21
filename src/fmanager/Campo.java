@@ -12,25 +12,34 @@ import java.io.Serializable;
  * @author edas
  */
 public class Campo implements Serializable {//nombre y id
-    private String nombre;//ver que sucede con string a la hora de cargar al archivo binario
-    private String data;
+    private String nombre;
+    private String datatype;
+    int longitud;
     private boolean key;
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public Campo(String nombre, String data, boolean key) {
+    public Campo(String nombre, String datatype, int longitud, boolean key) {
         this.nombre = nombre;
-        this.data = data;
+        this.datatype = datatype;
+        this.longitud = longitud;
         this.key = key;
     }
 
-    
+    public String getDatatype() {
+        return datatype;
+    }
+
+    public void setDatatype(String datatype) {
+        this.datatype = datatype;
+    }
+
+    public int getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
+    }
+
 
     public boolean isKey() {
         return key;

@@ -12,9 +12,9 @@ import java.util.LinkedList;
  *
  * @author edas
  */
-public class Registro implements Serializable{
+public class Registro implements Serializable{//connjunto de campos
     String nombre;
-    LinkedList<Campo> campos_de_registro=new LinkedList<>();//el registo contiene una lista de campos 
+    LinkedList<Campo> campos_de_registro=new LinkedList<>();
     
     public Registro(String nombre){
         this.nombre=nombre;
@@ -38,8 +38,13 @@ public class Registro implements Serializable{
     public void listar_campos(){
         
         for (int i = 0; i < campos_de_registro.size(); i++) {
-            System.out.print(campos_de_registro.get(i).getNombre()+":"+campos_de_registro.get(i).getData()+"|");
+            //System.out.print(campos_de_registro.get(i).getNombre()+":"+campos_de_registro.get(i).getData()+"|");
             //System.out.print(campos_de_registro.get(i).getData()+"|");
+            System.out.println("  nombre tipo longitud llave");
+            System.out.println("--------------------------------");
+            System.out.println(campos_de_registro.get(i).getNombre()
+                    +" "+campos_de_registro.get(i).getDatatype()+" "
+                    +campos_de_registro.get(i).getLongitud()+" "+campos_de_registro.get(i).isKey());
         }
     }
     
