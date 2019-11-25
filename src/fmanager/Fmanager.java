@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
+
+
 package fmanager;
 
 import java.awt.Desktop;
@@ -19,13 +23,21 @@ import java.util.Scanner;
  *
  * @author edas
  */
+
+
 public class Fmanager {
 
     /**
      * @param args the command line arguments
      * @throws java.lang.ClassNotFoundException
      */
+    
+    
+    
     public static void main(String[] args) throws ClassNotFoundException{
+        
+        
+        
         // TODO code application logic here
         int cont_reg=1;//contador de campos
         Scanner scanner=new Scanner(System.in);
@@ -147,7 +159,7 @@ public class Fmanager {
                             break;
                         case '4':
                             //cerrar el archivo abierto actualmente
-                            //if(flujo_entrada!=null&leer!=null||flujo_salida!=null&escribir!=null){
+                            
                             if(filename!=null){
                                 filename=null;
                                 campos.clear();
